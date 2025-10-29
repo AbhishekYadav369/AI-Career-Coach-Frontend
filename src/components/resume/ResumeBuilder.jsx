@@ -1,89 +1,3 @@
-// /**
-//  * ResumeBuilder Component
-//  * Professional resume builder with templates
-//  */
-// import React, { useState } from 'react';
-// import { useUser } from '../../contexts/UserContext';
-// import Navbar from '../common/Navbar';
-// import ResumeTemplate from './ResumeTemplate';
-// import ResumePreview from './ResumePreview';
-// import { RESUME_TEMPLATES } from '../../data/dummyData';
-// import '../../styles/components/resume.css';
-
-// export default function ResumeBuilder() {
-//   const { profile, updateProgress } = useUser();
-//   const [selectedTemplate, setSelectedTemplate] = useState(RESUME_TEMPLATES[0]);
-//   const [resumeData, setResumeData] = useState({
-//     ...profile,
-//     experience: [],
-//     projects: [],
-//     skills: []
-//   });
-
-//   const handleTemplateSelect = (template) => {
-//     setSelectedTemplate(template);
-//   };
-
-//   const handleDataChange = (section, data) => {
-//     setResumeData(prev => ({
-//       ...prev,
-//       [section]: data
-//     }));
-//   };
-
-//   const handleExport = () => {
-//     // Mock export functionality
-//     updateProgress('resumeBuilt', true);
-//     alert('Resume exported successfully!');
-//   };
-
-//   return (
-//     <div className="resume-builder-container">
-//       <Navbar />
-
-//       <div className="resume-content">
-//         <div className="resume-header">
-//           <h1>Resume Builder</h1>
-//           <p>Create a professional resume with our templates</p>
-//         </div>
-
-//         <div className="resume-layout">
-//           <div className="resume-sidebar">
-//             <div className="template-section">
-//               <h3>Choose Template</h3>
-//               <div className="template-grid">
-//                 {RESUME_TEMPLATES.map((template) => (
-//                   <ResumeTemplate
-//                     key={template.id}
-//                     template={template}
-//                     isSelected={selectedTemplate.id === template.id}
-//                     onSelect={handleTemplateSelect}
-//                   />
-//                 ))}
-//               </div>
-//             </div>
-
-//             <div className="export-section">
-//               <button className="btn-primary" onClick={handleExport}>
-//                 Export as PDF
-//               </button>
-//             </div>
-//           </div>
-
-//           <div className="resume-main">
-//             <ResumePreview
-//               template={selectedTemplate}
-//               data={resumeData}
-//               onDataChange={handleDataChange}
-//             />
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-
 /**
  * FullResumeForm Component
  * Professional resume form with all sections, dynamic fields, and PDF generation
@@ -179,18 +93,7 @@ export default function FullResumeForm() {
 
       })
 
-
-      // const blob = await response.blob();
-      // const url = window.URL.createObjectURL(blob);
-      // const link = document.createElement('a');
-      // link.href = url;
-      // link.setAttribute('download', 'resume.pdf');
-      // document.body.appendChild(link);
-      // link.click();
-      // link.parentNode.removeChild(link);
-
-    
-    } catch (err) {
+   } catch (err) {
       console.error(err);
       alert('Failed to generate resume PDF');
     }
@@ -242,20 +145,98 @@ export default function FullResumeForm() {
         {/* Personal Information */}
         <div className="resume-section">
           <h3>Personal Information</h3>
-          {Object.keys(resumeData.personalInformation).map(field => (
-            <div className="form-group" key={field}>
-              <label>{field}</label>
-              <input
-                type="text"
-                value={resumeData.personalInformation[field]}
-                onChange={(e) => handleChange('personalInformation', field, e.target.value)}
-              />
-            </div>
-          ))}
+          <div className="personal-info-grid">
+            {['fullName', 'email', 'phoneNumber', 'location', 'linkedIn', 'gitHub', 'portfolio'].map(field => (
+              <div className="form-group" key={field}>
+                <label className="resume-form-label">{field === 'gitHub' ? 'GitHub' : field === 'linkedIn' ? 'LinkedIn' : field}</label>
+                <input
+                  className="resume-form-input compact"
+                  type="text"
+                  value={resumeData.personalInformation[field]}
+                  onChange={(e) => handleChange('personalInformation', field, e.target.value)}
+                />
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Dynamic Sections */}
-        {renderArraySection('Achievements', 'achievements', ['title', 'year', 'extraInformation'])}
+        {/* Achievements (compact row layout) */}
+        <div className="resume-section">
+          {resumeData.achievements.length === 0 ? (
+            <div className="resume-section-header">
+              <h3 className="resume-section-title">Achievements</h3>
+              <button
+                type="button"
+                className="btn-primary"
+                onClick={() => handleAddItem('achievements', ['title', 'year', 'extraInformation'])}
+              >
+                Add Achievement
+              </button>
+            </div>
+          ) : (
+            <h3>Achievements</h3>
+          )}
+
+          <div className="achievement-list">
+            {resumeData.achievements.map((item, idx) => (
+              <div key={idx} className="section-item achievement-item">
+                <div className="achievement-grid">
+                  <div className="form-group">
+                    <label className="resume-form-label">Title</label>
+                    <input
+                      className="resume-form-input compact"
+                      type="text"
+                      value={item.title || ''}
+                      onChange={(e) => handleChange('achievements', 'title', e.target.value, idx)}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label className="resume-form-label">Year</label>
+                    <input
+                      className="resume-form-input compact"
+                      type="text"
+                      value={item.year || ''}
+                      onChange={(e) => handleChange('achievements', 'year', e.target.value, idx)}
+                    />
+                  </div>
+                </div>
+
+                <div className="achievement-details">
+                  <div className="form-group">
+                    <label className="resume-form-label">Details</label>
+                    <textarea
+                      className="resume-form-textarea compact"
+                      rows={2}
+                      value={item.extraInformation || ''}
+                      onChange={(e) => handleChange('achievements', 'extraInformation', e.target.value, idx)}
+                      placeholder="Brief details about the achievement"
+                    />
+                  </div>
+                </div>
+
+                <div className="achievement-actions-row">
+                  <button
+                    type="button"
+                    className="btn-secondary"
+                    onClick={() => handleRemoveItem('achievements', idx)}
+                  >
+                    Remove
+                  </button>
+
+                  <button
+                    type="button"
+                    className="btn-primary"
+                    onClick={() => handleAddItem('achievements', ['title', 'year', 'extraInformation'])}
+                  >
+                    Add Achievement
+                  </button>
+                </div>
+              </div>
+            ))}
+            
+          </div>
+        </div>
         {renderArraySection('Certifications', 'certifications', ['title', 'issuingOrganization', 'year'])}
         {renderArraySection('Education', 'education', ['degree', 'university', 'location', 'graduationYear'])}
         {renderArraySection('Experience', 'experience', ['jobTitle', 'company', 'location', 'duration', 'responsibility'])}

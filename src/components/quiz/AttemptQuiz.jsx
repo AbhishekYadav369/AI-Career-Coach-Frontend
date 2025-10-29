@@ -153,9 +153,9 @@ export default function AttemptQuiz() {
   };
 
   // ✅ Show start screen
-  if (!quizStarted || questions.length === 0) {
+ if (!quizStarted || questions.length === 0) {
     return (
-      <>
+      <div>
         <Navbar />
         <div className={`quiz-container ${quizStarted ? 'quiz-started' : ''}`} style={{ width: '100%', maxWidth: '100vw' }}>
           <div className="quiz-intro" style={{ 
@@ -196,14 +196,17 @@ export default function AttemptQuiz() {
             </div>
           </div>
         </div>
-      </>
+      </div>
     );
   }
 
+  
   // ✅ Quiz running screen
   return (
-    <div className={`quiz-container ${quizStarted ? 'quiz-started' : ''}`}>
+    <div>
       <Navbar />
+    <div className={`quiz-container ${quizStarted ? 'quiz-started' : ''}`}>
+      
 
       <div className="quiz-content">
         <QuizProgress
@@ -232,5 +235,6 @@ export default function AttemptQuiz() {
 
       </div>
     </div>
-  );
-}
+    </div>
+  );}
+

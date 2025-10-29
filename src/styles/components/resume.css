@@ -11,6 +11,113 @@
   padding: 0 1rem;
 }
 
+/* Center the page title inside the resume form view and constrain form width */
+.resume-form-container h1 {
+  text-align: center;
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
+  color: var(--color-text-primary);
+  margin: 1.5rem 0;
+}
+
+.resume-form {
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Compact personal info grid to save space */
+.personal-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem 1rem;
+  align-items: center;
+}
+
+.personal-info-grid .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.personal-info-grid .form-group.fullname {
+  grid-column: 1 / -1;
+}
+
+.personal-info-grid .resume-form-label {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.resume-form-input.compact {
+  padding: 0.45rem 0.6rem;
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 768px) {
+  .personal-info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Achievement compact layout */
+.achievement-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.achievement-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.achievement-grid {
+  display: grid;
+  grid-template-columns: 1fr 140px;
+  gap: 0.5rem 1rem;
+  align-items: center;
+}
+
+.achievement-grid .form-group {
+  margin-bottom: 0;
+}
+
+.achievement-details {
+  margin-top: 0.5rem;
+}
+
+.achievement-details .resume-form-textarea.compact {
+  padding: 0.5rem 0.6rem;
+  font-size: var(--text-sm);
+  min-height: 48px; /* approx 2 rows */
+}
+
+.achievement-actions-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.25rem;
+}
+
+.achievement-actions-row .btn-primary {
+  margin-left: auto;
+}
+
+@media (max-width: 768px) {
+  .achievement-grid {
+    grid-template-columns: 1fr;
+  }
+  .achievement-item {
+    gap: 0.75rem;
+  }
+}
+
 .resume-header {
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
   color: white;
