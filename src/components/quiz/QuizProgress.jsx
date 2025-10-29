@@ -48,7 +48,7 @@ export default function AttemptQuiz() {
         const category = sectionName.replace(/^Section\s*\d*:\s*/, "").trim();
         return sectionQuestions.map(q => ({
           id: q.id,
-          category,
+          section: sectionName,
           question: q.question,
           type: "text" // all user inputs will be text
         }));
