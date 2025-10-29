@@ -1,0 +1,35 @@
+@import '../variables.css';
+
+.loading-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+}
+.spinner-circle {
+  border: 5px solid var(--gray-200);
+  border-top: 5px solid var(--primary);
+  border-radius: 50%;
+  width: 38px; height: 38px;
+  animation: spinner-spin 0.85s linear infinite;
+}
+
+@keyframes spinner-spin {
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(360deg);}
+}
+
+.loading-dots { display: flex; gap: 6px;}
+.loading-dots .dot {
+  width: 10px; height: 10px;
+  background: var(--primary);
+  border-radius: 50%;
+  animation: dot-bounce 0.8s infinite alternate;
+}
+.loading-dots .dot:nth-child(2){ animation-delay: 0.2s;}
+.loading-dots .dot:nth-child(3){ animation-delay: 0.4s;}
+
+@keyframes dot-bounce {
+  from { transform: scale(1);}
+  to { transform: scale(1.5);}
+}

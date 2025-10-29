@@ -1,0 +1,143 @@
+@import '../variables.css';
+
+/* ====== Navbar Wrapper ====== */
+.main-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-50, #e6f7f8) 0%,
+    var(--color-primary-100, #c2f2f4) 100%
+  );
+  color: var(--color-primary, #007b83);
+  height: 64px;
+  padding: 0 1.8rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* ====== Brand Section ====== */
+.navbar-brand h2 {
+  margin: 0;
+  color: var(--color-primary, #007b83);
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.brand-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ====== Navigation Links ====== */
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-primary, #007b83);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.nav-item:hover,
+.nav-item.active {
+  background: var(--color-primary, #007b83);
+  color: #fff;
+}
+
+/* Progress Indicator Styles */
+.progress-indicator {
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+}
+
+.progress-indicator.completed {
+  color: var(--success, #22c55e);
+}
+
+.progress-indicator.accessible {
+  color: var(--color-primary, #007b83);
+}
+
+.progress-indicator.locked {
+  color: #999;
+}
+
+/* Locked / Disabled Links */
+.nav-item.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ====== User Info + Logout ====== */
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-info {
+  font-weight: 500;
+  color: var(--color-primary-dark, #004d52);
+}
+
+.logout-btn {
+  background: var(--danger, #dc2626);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 7px 16px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.logout-btn:hover {
+  background: #b91c1c;
+  transform: translateY(-1px);
+}
+
+/* ====== Responsive Design ====== */
+@media (max-width: 850px) {
+  .main-navbar {
+    flex-direction: column;
+    align-items: stretch;
+    height: auto;
+    padding: 1rem 1.2rem;
+    gap: 0.8rem;
+  }
+
+  .navbar-brand {
+    text-align: center;
+    margin-bottom: 0.4rem;
+  }
+
+  .navbar-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
+  }
+
+  .navbar-user {
+    justify-content: center;
+  }
+
+  .logout-btn {
+    padding: 8px 14px;
+  }
+}
